@@ -19,7 +19,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ENDE_MERC = "endereco";
 
     public static final String TABLE_ITEM = "ITEM_PRODUTO";
-    public static final String COLUMN_LOCA_IT = "location";
+//    public static final String COLUMN_LOCA_IT = "location";
     public static final String COLUMN_PRIC_IT = "price";
     public static final String COLUMN_FK_PROD = "FK_PRODUTO";
     public static final String COLUMN_FK_MER = "FK_MERCADO";
@@ -51,8 +51,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         bd.append("(");
         bd.append(COLUMN_ID);
         bd.append(" INTEGER PRIMARY KEY AUTOINCREMENT, ");
-        bd.append(COLUMN_LOCA_IT);
-        bd.append(" TEXT, ");
+//        bd.append(COLUMN_LOCA_IT);
+//        bd.append(" TEXT, ");
         bd.append(COLUMN_PRIC_IT);
         bd.append(" FLOAT(10,2), ");
         bd.append(COLUMN_FK_PROD);

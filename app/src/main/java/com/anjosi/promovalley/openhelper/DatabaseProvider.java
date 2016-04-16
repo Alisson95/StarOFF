@@ -19,8 +19,8 @@ import java.util.TimerTask;
  */
 public class DatabaseProvider {
 
-    private DataBaseHelper helper;
-    private SQLiteDatabase db;
+    public static DataBaseHelper helper;
+    public static SQLiteDatabase db;
 
     public DatabaseProvider(Context context){
 
@@ -39,7 +39,7 @@ public class DatabaseProvider {
         }, 2000, 2000);
     }
 
-    public int insertProdutos(ProductVO vo){
+    public static int insertProdutos(ProductVO vo){
         ContentValues cv = new ContentValues();
 
         cv.put(DataBaseHelper.COLUMN_NAME_COMP, vo.getName());
@@ -53,10 +53,9 @@ public class DatabaseProvider {
         return  Integer.parseInt(String.valueOf(id));
     }
 
-    public int insertItens(ItemProductVO item){
+    public static int insertItens(ItemProductVO item){
         ContentValues cv = new ContentValues();
 
-        cv.put(DataBaseHelper.COLUMN_LOCA_IT, item.getLocation());
         cv.put(DataBaseHelper.COLUMN_PRIC_IT, item.getPrice());
         cv.put(DataBaseHelper.COLUMN_FK_MER, item.getMercado().getId());
         cv.put(DataBaseHelper.COLUMN_FK_PROD, item.getProduto().getId());
@@ -70,7 +69,7 @@ public class DatabaseProvider {
         return  Integer.parseInt(String.valueOf(id));
     }
 
-    public int insertMercado(MercadoVO vo){
+    public static int insertMercado(MercadoVO vo){
         ContentValues cv = new ContentValues();
         cv.put(DataBaseHelper.COLUMN_NAME_MERC, vo.getName());
         cv.put(DataBaseHelper.COLUMN_ENDE_MERC, vo.getEndereco());
@@ -84,15 +83,15 @@ public class DatabaseProvider {
         return  Integer.parseInt(String.valueOf(id));
     }
 
-    public List<ItemProductVO> listItens(){
+    public static List<ItemProductVO> listItens(){
         return  listItens(0, 0, true);
     }
 
-    public List<ItemProductVO> listItens(int codigoPro, int codigoMercado){
+    public static List<ItemProductVO> listItens(int codigoPro, int codigoMercado){
         return  listItens(codigoPro, codigoMercado, true);
     }
 
-    public List<ItemProductVO> listItens(int codigoPro, int codigoMercado, boolean orderDesc){
+    public static List<ItemProductVO> listItens(int codigoPro, int codigoMercado, boolean orderDesc){
         db = helper.getReadableDatabase();
 
         StringBuffer bf = new StringBuffer();
@@ -137,7 +136,6 @@ public class DatabaseProvider {
 
         while (cursor.moveToNext()){
             int id = cursor.getInt(cursor.getColumnIndex(DataBaseHelper.COLUMN_ID));
-            String location = cursor.getString(cursor.getColumnIndex(DataBaseHelper.COLUMN_LOCA_IT));
             Double price = cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.COLUMN_PRIC_IT));
 
             int codPr = cursor.getInt(cursor.getColumnIndex(DataBaseHelper.COLUMN_FK_PROD));
@@ -151,7 +149,6 @@ public class DatabaseProvider {
             itemVo.setProduto(prod);
             itemVo.setMercado(merc);
             itemVo.setId(id);
-            itemVo.setLocation(location);
             itemVo.setPrice(price);
 
             listItens.add(itemVo);
@@ -163,15 +160,15 @@ public class DatabaseProvider {
         return listItens;
     }
 
-    public ProductVO ItemProduto(int codiPro){
+    public static ProductVO ItemProduto(int codiPro){
         return listProd(codiPro).get(0);
     }
 
-    public List<ProductVO> listProd(){
+    public static List<ProductVO> listProd(){
         return  listProd(null);
     }
 
-    public List<ProductVO> listProd(Object where){
+    public static List<ProductVO> listProd(Object where){
         db = helper.getReadableDatabase();
 
         StringBuffer bf = new StringBuffer();
@@ -216,15 +213,15 @@ public class DatabaseProvider {
         return produtos;
     }
 
-    public MercadoVO ItemMercado(int codigo){
+    public static MercadoVO ItemMercado(int codigo){
         return  listMercados(codigo).get(0);
     }
 
-    public List<MercadoVO> listMercados(){
+    public static List<MercadoVO> listMercados(){
         return  listMercados(null);
     }
 
-    public List<MercadoVO> listMercados(Object where){
+    public static List<MercadoVO> listMercados(Object where){
         db = helper.getReadableDatabase();
 
         StringBuffer bf = new StringBuffer();
@@ -272,44 +269,44 @@ public class DatabaseProvider {
         return mercados;
     }
 
-    private void AutoInserItens(){
+    private static void AutoInserItens(){
         ItemProductVO vo = new ItemProductVO();
 
         MercadoVO mercadoVO = new MercadoVO();
         mercadoVO.setId(1);
         vo.setMercado(mercadoVO);
 
-        itens(vo, 1, 10.00, "ALIMENTOS");
+        itens(vo, 1, 10.00);
         insertItens(vo);
 
-        itens(vo, 2, 7.80, "ALIMENTOS");
+        itens(vo, 2, 7.80);
         insertItens(vo);
 
-        itens(vo, 3, 6.00, "GRAOS");
+        itens(vo, 3, 6.00);
         insertItens(vo);
 
-        itens(vo, 4, 12.00, "DIVERSOS");
+        itens(vo, 4, 12.00);
         insertItens(vo);
 
-        itens(vo, 5, 2.70, "ALIMENTOS");
+        itens(vo, 5, 2.70);
         insertItens(vo);
 
-        itens(vo, 6, 8.95, "GRAOS");
+        itens(vo, 6, 8.95);
         insertItens(vo);
 
-        itens(vo, 7, 15.22, "DIVERSOS");
+        itens(vo, 7, 15.22);
         insertItens(vo);
 
-        itens(vo, 8, 8.75, "MASSAS");
+        itens(vo, 8, 8.75);
         insertItens(vo);
 
-        itens(vo, 9, 9.99, "LIQUIDOS");
+        itens(vo, 9, 9.99);
         insertItens(vo);
 
-        itens(vo, 10, 7.30, "DIVERSOS");
+        itens(vo, 10, 7.30);
         insertItens(vo);
 
-        itens(vo, 11, 8.82, "DIVERSOS");
+        itens(vo, 11, 8.82);
         insertItens(vo);
 
 
@@ -318,51 +315,50 @@ public class DatabaseProvider {
         mercadoVO.setId(2);
         vo.setMercado(mercadoVO);
 
-        itens(vo, 1, 8.90, "ALIMENTOS");
+        itens(vo, 1, 8.90);
         insertItens(vo);
 
-        itens(vo, 2, 8.80, "ALIMENTOS");
+        itens(vo, 2, 8.80);
         insertItens(vo);
 
-        itens(vo, 3, 12.00, "GRAOS");
+        itens(vo, 3, 12.00);
         insertItens(vo);
 
-        itens(vo, 4, 5.00, "DIVERSOS");
+        itens(vo, 4, 5.00);
         insertItens(vo);
 
-        itens(vo, 5, 6.70, "ALIMENTOS");
+        itens(vo, 5, 6.70);
         insertItens(vo);
 
-        itens(vo, 6, 9.95, "GRAOS");
+        itens(vo, 6, 9.95);
         insertItens(vo);
 
-        itens(vo, 7, 1.22, "DIVERSOS");
+        itens(vo, 7, 1.22);
         insertItens(vo);
 
-        itens(vo, 8, 6.75, "MASSAS");
+        itens(vo, 8, 6.75);
         insertItens(vo);
 
-        itens(vo, 9, 2.99, "LIQUIDOS");
+        itens(vo, 9, 2.99);
         insertItens(vo);
 
-        itens(vo, 10, 17.30, "DIVERSOS");
+        itens(vo, 10, 17.30);
         insertItens(vo);
 
-        itens(vo, 11, 12.82, "DIVERSOS");
+        itens(vo, 11, 12.82);
         insertItens(vo);
     }
 
-    private ItemProductVO itens(ItemProductVO vo, int codigoPro, double valor, String location){
+    private static ItemProductVO itens(ItemProductVO vo, int codigoPro, double valor){
         ProductVO productVO = new ProductVO();
         productVO.setId(codigoPro);
         vo.setProduto(productVO);
         vo.setPrice(valor);
-        vo.setLocation(location);
 
         return vo;
     }
 
-    private void AutoInserMercados(){
+    private static void AutoInserMercados(){
         MercadoVO mercado = new MercadoVO();
         mercado.setName("Mercado Preco BOM");
         mercado.setEndereco("Rua Tenente Camargo, 1370");
@@ -373,7 +369,7 @@ public class DatabaseProvider {
         insertMercado(mercado);
     }
 
-    private void AutoInserProdutos(){
+    private static void AutoInserProdutos(){
         ProductVO produto = new ProductVO();
         produto.setName("ARROZ");
         insertProdutos(produto);
