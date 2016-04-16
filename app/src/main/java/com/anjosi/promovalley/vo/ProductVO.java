@@ -11,7 +11,7 @@ public class ProductVO {
 
     private String location;
 
-    private Float price;
+    private Double price;
 
     //GETTERS AND SETTERS
     public String getName() {
@@ -30,11 +30,19 @@ public class ProductVO {
         this.location = location;
     }
 
-    public Float getPrice() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }
