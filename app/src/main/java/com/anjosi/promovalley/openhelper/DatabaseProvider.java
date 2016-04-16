@@ -29,8 +29,6 @@ public class DatabaseProvider {
             AutoInserMercados();
             AutoInserItens();
         }
-
-        listItens();
     }
 
     public int insertProdutos(ProductVO vo){
