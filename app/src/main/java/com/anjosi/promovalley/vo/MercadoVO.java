@@ -3,13 +3,13 @@ package com.anjosi.promovalley.vo;
 /**
  * Created by OneSecond on 16/04/2016.
  */
-public class ProductVO {
+public class MercadoVO {
 
     private Integer id;
 
     private String name;
 
-    public ItemProductVO itemProduct;
+    private String endereco;
 
     //GETTERS AND SETTERS
     public Integer getId() {
@@ -28,11 +28,11 @@ public class ProductVO {
         this.name = name;
     }
 
-    public ItemProductVO getItemProduct() {
-        return itemProduct;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setItemProduct(ItemProductVO itemProduct) {
-        this.itemProduct = itemProduct;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 }
