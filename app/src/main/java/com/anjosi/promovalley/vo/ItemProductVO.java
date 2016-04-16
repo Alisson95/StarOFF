@@ -11,8 +11,14 @@ public class ItemProductVO {
 
     private Double price;
 
+    private ProductVO produto;
+
+    private MercadoVO mercado;
+
     //GETTERS AND SETTERS
-    public Integer getId() { return id; }
+    public Integer getId() {
+        return id;
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -32,5 +38,21 @@ public class ItemProductVO {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public ProductVO getProduto() {
+        return produto;
+    }
+
+    public void setProduto(ProductVO produto) {
+        this.produto = produto;
+    }
+
+    public MercadoVO getMercado() {
+        return mercado;
+    }
+
+    public void setMercado(MercadoVO mercado) {
+        this.mercado = mercado;
     }
 }

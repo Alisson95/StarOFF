@@ -9,8 +9,6 @@ public class ProductVO {
 
     private String name;
 
-    public ItemProductVO itemProduct;
-
     //GETTERS AND SETTERS
     public Integer getId() {
         return id;
@@ -26,13 +24,5 @@ public class ProductVO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public ItemProductVO getItemProduct() {
-        return itemProduct;
-    }
-
-    public void setItemProduct(ItemProductVO itemProduct) {
-        this.itemProduct = itemProduct;
     }
 }
