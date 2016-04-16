@@ -26,12 +26,9 @@ public class DatabaseProvider {
 
         if(listProd().size() == 0){
             AutoInserProdutos();
-        }
-
-        if(listMercados().size() == 0){
             AutoInserMercados();
+            AutoInserItens();
         }
-
     }
 
     public int insertProdutos(ProductVO vo){
@@ -58,7 +55,7 @@ public class DatabaseProvider {
 
         db = helper.getWritableDatabase();
 
-        long id = db.insert(DataBaseHelper.TABLE_COMP, null, cv);
+        long id = db.insert(DataBaseHelper.TABLE_ITEM, null, cv);
 
         db.close();
 
@@ -130,15 +127,16 @@ public class DatabaseProvider {
 
         List<ItemProductVO> listItens = new ArrayList<ItemProductVO>();
 
-        cursor.moveToFirst();
-
-        while (cursor.moveToFirst()){
+        while (cursor.moveToNext()){
             int id = cursor.getInt(cursor.getColumnIndex(DataBaseHelper.COLUMN_ID));
             String location = cursor.getString(cursor.getColumnIndex(DataBaseHelper.COLUMN_LOCA_IT));
             Double price = cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.COLUMN_PRIC_IT));
 
-            ProductVO prod = ItemProduto(cursor.getInt(cursor.getColumnIndex(DataBaseHelper.COLUMN_FK_PROD)));
-            MercadoVO merc = ItemMercado(cursor.getInt(cursor.getColumnIndex(DataBaseHelper.COLUMN_FK_MER)));
+            int codPr = cursor.getInt(cursor.getColumnIndex(DataBaseHelper.COLUMN_FK_PROD));
+            int codMr = cursor.getInt(cursor.getColumnIndex(DataBaseHelper.COLUMN_FK_MER));
+
+            ProductVO prod = ItemProduto(codPr);
+            MercadoVO merc = ItemMercado(codMr);
 
 
             ItemProductVO itemVo = new ItemProductVO();
@@ -193,7 +191,6 @@ public class DatabaseProvider {
 
         List<ProductVO> produtos = new ArrayList<ProductVO>();
 
-        cursor.moveToFirst();
         while (cursor.moveToNext()){
             int id = cursor.getInt(cursor.getColumnIndex(DataBaseHelper.COLUMN_ID));
             String nome = cursor.getString(cursor.getColumnIndex(DataBaseHelper.COLUMN_NAME_COMP));
@@ -248,9 +245,7 @@ public class DatabaseProvider {
 
         List<MercadoVO> mercados = new ArrayList<MercadoVO>();
 
-        cursor.moveToFirst();
-
-        while (cursor.moveToFirst()){
+        while (cursor.moveToNext()){
             int id = cursor.getInt(cursor.getColumnIndex(DataBaseHelper.COLUMN_ID));
             String nome = cursor.getString(cursor.getColumnIndex(DataBaseHelper.COLUMN_NAME_MERC));
             String endereco = cursor.getString(cursor.getColumnIndex(DataBaseHelper.COLUMN_ENDE_MERC));
@@ -267,6 +262,96 @@ public class DatabaseProvider {
         db.close();
 
         return mercados;
+    }
+
+    private void AutoInserItens(){
+        ItemProductVO vo = new ItemProductVO();
+
+        MercadoVO mercadoVO = new MercadoVO();
+        mercadoVO.setId(1);
+        vo.setMercado(mercadoVO);
+
+        itens(vo, 1, 10.00, "ALIMENTOS");
+        insertItens(vo);
+
+        itens(vo, 2, 7.80, "ALIMENTOS");
+        insertItens(vo);
+
+        itens(vo, 3, 6.00, "GRAOS");
+        insertItens(vo);
+
+        itens(vo, 4, 12.00, "DIVERSOS");
+        insertItens(vo);
+
+        itens(vo, 5, 2.70, "ALIMENTOS");
+        insertItens(vo);
+
+        itens(vo, 6, 8.95, "GRAOS");
+        insertItens(vo);
+
+        itens(vo, 7, 15.22, "DIVERSOS");
+        insertItens(vo);
+
+        itens(vo, 8, 8.75, "MASSAS");
+        insertItens(vo);
+
+        itens(vo, 9, 9.99, "LIQUIDOS");
+        insertItens(vo);
+
+        itens(vo, 10, 7.30, "DIVERSOS");
+        insertItens(vo);
+
+        itens(vo, 11, 8.82, "DIVERSOS");
+        insertItens(vo);
+
+
+        //mercado 2
+
+        mercadoVO.setId(2);
+        vo.setMercado(mercadoVO);
+
+        itens(vo, 1, 8.90, "ALIMENTOS");
+        insertItens(vo);
+
+        itens(vo, 2, 8.80, "ALIMENTOS");
+        insertItens(vo);
+
+        itens(vo, 3, 12.00, "GRAOS");
+        insertItens(vo);
+
+        itens(vo, 4, 5.00, "DIVERSOS");
+        insertItens(vo);
+
+        itens(vo, 5, 6.70, "ALIMENTOS");
+        insertItens(vo);
+
+        itens(vo, 6, 9.95, "GRAOS");
+        insertItens(vo);
+
+        itens(vo, 7, 1.22, "DIVERSOS");
+        insertItens(vo);
+
+        itens(vo, 8, 6.75, "MASSAS");
+        insertItens(vo);
+
+        itens(vo, 9, 2.99, "LIQUIDOS");
+        insertItens(vo);
+
+        itens(vo, 10, 17.30, "DIVERSOS");
+        insertItens(vo);
+
+        itens(vo, 11, 12.82, "DIVERSOS");
+        insertItens(vo);
+    }
+
+    private ItemProductVO itens(ItemProductVO vo, int codigoPro, double valor, String location){
+        ProductVO productVO = new ProductVO();
+        productVO.setId(codigoPro);
+        vo.setProduto(productVO);
+        vo.setPrice(valor);
+        vo.setLocation(location);
+
+        return vo;
     }
 
     private void AutoInserMercados(){
