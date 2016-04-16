@@ -43,9 +43,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CreateTable(db);
     }
 
-    private void CreateTable(SQLiteDatabase db){
+    private void CreateTable(SQLiteDatabase db) {
         StringBuilder bd = new StringBuilder();
-
 
         bd.append("CREATE TABLE ");
         bd.append(TABLE_ITEM);

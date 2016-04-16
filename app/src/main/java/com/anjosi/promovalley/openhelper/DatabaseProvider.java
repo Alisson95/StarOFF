@@ -1,6 +1,7 @@
 package com.anjosi.promovalley.openhelper;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.anjosi.promovalley.vo.ItemProductVO;
@@ -15,7 +16,9 @@ public class DatabaseProvider {
     private DataBaseHelper helper;
     private SQLiteDatabase db;
 
-    public DatabaseProvider(){
+    public DatabaseProvider(Context context){
+
+        helper = new DataBaseHelper(context);
         db = helper.getWritableDatabase();
     }
 
