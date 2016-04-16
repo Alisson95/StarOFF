@@ -11,6 +11,8 @@ import com.anjosi.promovalley.vo.ProductVO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Anjosi on 16/04/2016.
@@ -24,11 +26,17 @@ public class DatabaseProvider {
 
         helper = new DataBaseHelper(context);
 
-        if(listProd().size() == 0){
-            AutoInserProdutos();
-            AutoInserMercados();
-            AutoInserItens();
-        }
+        Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if(listProd().size() == 0){
+                    AutoInserProdutos();
+                    AutoInserMercados();
+                    AutoInserItens();
+                }
+            }
+        }, 2000, 2000);
     }
 
     public int insertProdutos(ProductVO vo){
