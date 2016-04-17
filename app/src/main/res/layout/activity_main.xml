@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_weight="1" />
+        android:layout_weight="2" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -18,9 +18,9 @@
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/BtnPromo"
+            android:id="@+id/btn_mercado"
             android:layout_weight="1"
-            android:onClick="BtnPromo"/>
+            android:onClick="BtnMercado"/>
 
         <ImageButton
             android:layout_width="match_parent"
@@ -30,17 +30,4 @@
             android:onClick="BtnCompara"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-
-        <ImageButton
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/BtnLista"
-            android:layout_weight="1"
-            android:onClick="BtnLista"/>
-    </LinearLayout>
 </LinearLayout>

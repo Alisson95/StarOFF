@@ -11,8 +11,6 @@ import com.anjosi.promovalley.vo.ProductVO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Anjosi on 16/04/2016.
@@ -25,7 +23,7 @@ public class DatabaseProvider {
     public DatabaseProvider(Context context){
 
         helper = new DataBaseHelper(context);
-
+/*
         Timer t = new Timer();
         t.schedule(new TimerTask() {
             @Override
@@ -37,6 +35,7 @@ public class DatabaseProvider {
                 }
             }
         }, 2000, 2000);
+*/
     }
 
     public static int insertProdutos(ProductVO vo){
@@ -242,7 +241,10 @@ public class DatabaseProvider {
 
             argumentos = new String[]{String.valueOf(where)};
 
+        }else{
+            argumentos = new String[]{""};
         }
+
         bf.append(" ORDER BY ");
         bf.append(DataBaseHelper.COLUMN_NAME_MERC);
 
@@ -360,12 +362,12 @@ public class DatabaseProvider {
 
     private static void AutoInserMercados(){
         MercadoVO mercado = new MercadoVO();
-        mercado.setName("Mercado Preco BOM");
-        mercado.setEndereco("Rua Tenente Camargo, 1370");
+        mercado.setName("SuperMercado SuperPao");
+        mercado.setEndereco("Av. Antônio Paiva Cantelmo 77");
         insertMercado(mercado);
 
-        mercado.setName("Mercado CompreAqui");
-        mercado.setEndereco("Rua Buenos Aires, 66");
+        mercado.setName("MSuperMercado Vipi");
+        mercado.setEndereco("Rua Antonina, 320");
         insertMercado(mercado);
     }
 

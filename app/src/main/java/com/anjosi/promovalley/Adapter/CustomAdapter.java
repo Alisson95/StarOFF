@@ -7,7 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.anjosi.promovalley.AdapterItens.MercadoAdapter;
 import com.anjosi.promovalley.R;
+import com.anjosi.promovalley.vo.MercadoVO;
+import com.anjosi.promovalley.vo.ViewHolder;
+
+import java.util.List;
 
 /**
  * Created by Anjosi on 16/04/2016.
@@ -15,10 +20,9 @@ import com.anjosi.promovalley.R;
 public class CustomAdapter extends BaseAdapter{
 
     private Context context;
+    private List<?> listaDados;
 
-    String[][] listaDados;
-
-    public CustomAdapter(Context context, String[][] dados){
+    public CustomAdapter(Context context, List<?> dados){
         this.context = context;
         this.listaDados = dados;
     }
@@ -42,7 +46,7 @@ public class CustomAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
 
-        if(convertView == null){
+        if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.layout_itens, null);
 
             holder = new ViewHolder();
@@ -55,26 +59,15 @@ public class CustomAdapter extends BaseAdapter{
             holder.row_06 = (TextView) convertView.findViewById(R.id.row_06);
 
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.row_01.setText(listaDados[0][position]);
-        holder.row_02.setText(listaDados[1][position]);
-        holder.row_03.setText(listaDados[2][position]);
-        holder.row_04.setText(listaDados[3][position]);
-        holder.row_05.setText(listaDados[4][position]);
-        holder.row_06.setText(listaDados[5][position]);
+
+        if (listaDados.getClass().getSimpleName().equals(MercadoVO.class)) {
+            MercadoAdapter.CarreMercados(holder, ((MercadoVO)listaDados.get(position)));
+        }
 
         return convertView;
-    }
-
-    static class ViewHolder {
-        TextView row_01;
-        TextView row_02;
-        TextView row_03;
-        TextView row_04;
-        TextView row_05;
-        TextView row_06;
     }
 }
