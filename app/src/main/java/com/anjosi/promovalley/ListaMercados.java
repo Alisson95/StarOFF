@@ -13,6 +13,7 @@ import java.util.List;
 public class ListaMercados extends Activity {
 
     private ListView listaDados;
+    CustomAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +22,13 @@ public class ListaMercados extends Activity {
 
         this.listaDados = (ListView) findViewById(R.id.list_produtos);
 
-
         ListaMercados();
     }
 
     private void ListaMercados(){
         List<MercadoVO> listMercado = DatabaseProvider.listMercados();
 
-        CustomAdapter adapter = new CustomAdapter(this, listMercado);
+        adapter = new CustomAdapter(this, R.layout.layout_itens, listMercado, MercadoVO.class.getSimpleName().toString());
 
         listaDados.setAdapter(adapter);
     }

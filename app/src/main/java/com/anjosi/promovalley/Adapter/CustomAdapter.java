@@ -4,42 +4,32 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.anjosi.promovalley.AdapterItens.MercadoAdapter;
 import com.anjosi.promovalley.R;
 import com.anjosi.promovalley.vo.MercadoVO;
-import com.anjosi.promovalley.vo.ViewHolder;
 
 import java.util.List;
 
 /**
  * Created by Anjosi on 16/04/2016.
  */
-public class CustomAdapter extends BaseAdapter{
+public class CustomAdapter<T> extends ArrayAdapter<T>{
 
     private Context context;
-    private List<?> listaDados;
+    List<T> listaDados;
+    private LayoutInflater inflater;
+    int resorceId;
+    private String name;
 
-    public CustomAdapter(Context context, List<?> dados){
+    public CustomAdapter(Context context, int resource, List<T> objects, String name) {
+        super(context, resource, objects);
         this.context = context;
-        this.listaDados = dados;
-    }
-
-    @Override
-    public int getCount() {
-        return 0;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return 0;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
+        this.listaDados = objects;
+        this.inflater = LayoutInflater.from(context);
+        this.resorceId = resource;
+        this. name = name;
     }
 
     @Override
@@ -47,7 +37,7 @@ public class CustomAdapter extends BaseAdapter{
         ViewHolder holder = null;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.layout_itens, null);
+            convertView = inflater.inflate(resorceId, null);
 
             holder = new ViewHolder();
 
@@ -64,10 +54,23 @@ public class CustomAdapter extends BaseAdapter{
         }
 
 
-        if (listaDados.getClass().getSimpleName().equals(MercadoVO.class)) {
-            MercadoAdapter.CarreMercados(holder, ((MercadoVO)listaDados.get(position)));
+        Object item = listaDados.get(position);
+
+        if (item.getClass().equals(MercadoVO.class)) {
+            holder.row_01.setText(String.valueOf (((MercadoVO) item).getId()));
+            holder.row_02.setText(((MercadoVO) item).getName());
+            holder.row_03.setText(((MercadoVO) item).getEndereco());
         }
 
         return convertView;
+    }
+
+    static class ViewHolder {
+        TextView row_01;
+        TextView row_02;
+        TextView row_03;
+        TextView row_04;
+        TextView row_05;
+        TextView row_06;
     }
 }
