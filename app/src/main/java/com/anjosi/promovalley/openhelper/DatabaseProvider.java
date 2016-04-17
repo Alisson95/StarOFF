@@ -241,8 +241,6 @@ public class DatabaseProvider {
 
             argumentos = new String[]{String.valueOf(where)};
 
-        }else{
-            argumentos = new String[]{""};
         }
 
         bf.append(" ORDER BY ");
